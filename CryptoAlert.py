@@ -17,23 +17,26 @@ def getCryptoPrices():
     url = "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,binancecoin&vs_currencies=usd"
     #requests.get(url) have the information in code http
     response = requests.get(url)
-    data = response.json() #convert the response of the get to json, and convert in data to python dictionay
-
-    if response.status_code == 200:#this if, is to confirm the status code of the request
-        return data #return the dictionary of objets type crypto coin
+    #convert the response of the get to json, and convert in data to python dictionary
+    data = response.json() 
+    #this if, is to confirm the status code of the request
+    if response.status_code == 200:
+        #return the dictionary of objets type crypto coin
+        return data 
     else:
         print(f"Error: {str(response.status_code)} in the request")#if the request status is diferent to 200, is an error
 
-#
 def sendMessageIf():
-    
-    cryptoValue = getCryptoPrices()#with cryptoValue get the return of def getCryptoPrices():
+    #with cryptoValue get the return of def getCryptoPrices()
+    cryptoValue = getCryptoPrices()
 
+    #crypto value has the info of the crypto coins and look for the keys
+    #if the value of crytpo doesnt exist, the value is = 0
     binanceCoinValue = cryptoValue.get('binancecoin', {}).get('usd', 0)
     bitcoinValue = cryptoValue.get('bitcoin', {}).get('usd', 0)
     ethereumValue = cryptoValue.get('ethereum', {}).get('usd', 0)
-
-    if binanceCoinValue > 700:#condition for send the message and use the def createMessage(nameCrypto,actualValue,maxLim):
+    #condition for send the message and use the def createMessage(nameCrypto,actualValue,maxLim)
+    if binanceCoinValue > 700:
         createMessage("binanceCoin", binanceCoinValue, 700)
     if bitcoinValue > 30000:
         createMessage("bitcoin", bitcoinValue, 30000)
@@ -43,17 +46,17 @@ def sendMessageIf():
 def createMessage(nameCrypto, actualValue, maxLim):
 
     client = Client(account_sid, auth_token)
-    message_body = (f"Alert the price of {nameCrypto} has a value of {actualValue} dollars." 
+    message_body = (f"Price Alert: The value of {nameCrypto} has a value of {actualValue} dollars." 
                     f"The maximum limit was {maxLim} dollars.")
-    
+    #create the message to send for recipient number
     message = client.messages.create(
 
-        body = message_body,#mensaje de alerta creado arriba
+        body = message_body,
         from_ = twilio_phone_number,
         to = whatsapp_recipient
     )
     
     print(f"send message: {message.sid}")
 
-
+#run the script to check prices and send alerts if necessary
 sendMessageIf()
