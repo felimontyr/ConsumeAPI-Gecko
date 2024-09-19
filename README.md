@@ -97,3 +97,30 @@ BINANCECOIN_THRESHOLD = 300
 - Ensure that your Twilio phone number is enabled to send WhatsApp messages. Refer to [Twilio's WhatsApp documentation](https://www.twilio.com/docs/whatsapp) for setup instructions.
 - If you encounter issues with the CoinGecko API, visit [CoinGecko API documentation](https://www.coingecko.com/en/api) for more details.
 
+Claro, aquí tienes una sección simplificada sobre la ejecución automática y un ejemplo de cron job:
+
+### Future Work
+
+To enhance the functionality of this script, consider implementing automated execution. You can set up a cron job to run the script at regular intervals (e.g., every hour) to continuously monitor cryptocurrency prices and send alerts without manual intervention.
+
+#### Example of a Cron Job
+
+To run the script every hour, you can add the following line to your crontab:
+
+To edit crontab, run:
+    ```bash
+    crontab -e
+    ```
+
+- Add the following line to the file to schedule your script
+    ```bash
+    0 * * * * python /path/to/CryptoAlert.py
+    ```
+
+- Save and exit
+
+In this example:
+- `0 * * * *` means the script will run at the start of every hour.
+- Replace `/path/CryptoAlert.py` with the actual path to your Python script.
+
+This setup ensures that your script runs automatically and keeps you updated on cryptocurrency prices.
