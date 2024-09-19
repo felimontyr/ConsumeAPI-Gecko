@@ -1,8 +1,7 @@
-#import requests 
+import os
 import requests
 from twilio.rest import Client
 from dotenv import load_dotenv
-import os
 
 load_dotenv()
 #this dates are requirment to use this python script, for alert message of twilio
@@ -46,8 +45,8 @@ def sendMessageIf():
 def createMessage(nameCrypto, actualValue, maxLim):
 
     client = Client(account_sid, auth_token)
-    message_body = (f"Price Alert: The value of {nameCrypto} has a value of {actualValue} dollars." 
-                    f"The maximum limit was {maxLim} dollars.")
+    message_body = (f"Price Alert: The value of {nameCrypto} has a value of {actualValue} USD." 
+                    f"The maximum limit was {maxLim} USD.")
     #create the message to send for recipient number
     message = client.messages.create(
 
