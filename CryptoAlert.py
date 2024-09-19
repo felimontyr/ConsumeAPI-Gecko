@@ -35,8 +35,8 @@ def sendMessageIf():
     bitcoinValue = cryptoValue.get('bitcoin', {}).get('usd', 0)
     ethereumValue = cryptoValue.get('ethereum', {}).get('usd', 0)
     #condition for send the message and use the def createMessage(nameCrypto,actualValue,maxLim)
-    if binanceCoinValue > 700:
-        createMessage("binanceCoin", binanceCoinValue, 700)
+    if binanceCoinValue > 300:
+        createMessage("binanceCoin", binanceCoinValue, 300)
     if bitcoinValue > 30000:
         createMessage("bitcoin", bitcoinValue, 30000)
     if ethereumValue > 2000:
